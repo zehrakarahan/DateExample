@@ -40,9 +40,9 @@ namespace DateExample.Controllers
             //xdoc.Save(pathToDataFile);
             var user = new IdentityUser
             {
-                UserName = "zehrakarahan32",
-                Email = "zehrakarahan96@gmail.com",
-                PhoneNumber = "1"
+                UserName = "*",
+                Email = "*",
+                PhoneNumber = "*"
             };
 
             var result = await _userManager.CreateAsync(user, "1");
