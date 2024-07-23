@@ -11,22 +11,22 @@ namespace DateExample.Data
             _serviceProvider = serviceProvider;
         }
 
-        public void FetchData()
-        {
-            using (var scope = _serviceProvider.CreateScope())
-            {
-                var dbContext = scope.ServiceProvider.GetRequiredService<ApplicationDbContext>();
+        //public void FetchData()
+        //{
+        //    using (var scope = _serviceProvider.CreateScope())
+        //    {
+        //        var dbContext = scope.ServiceProvider.GetRequiredService<ApplicationDbContext>();
 
-                var builder = scope.ServiceProvider.GetRequiredService<IWebHostBuilder>();
+        //        var builder = scope.ServiceProvider.GetRequiredService<IWebHostBuilder>();
 
-                var data = dbContext.PasswordPolicies.ToList();
-                foreach (var item in data)
-                {
+        //        var data = dbContext.PasswordPolicies.ToList();
+        //        foreach (var item in data)
+        //        {
                 
-                    Console.WriteLine($"ID: {item.Id}, Name: {item.RequireLowercase}");
-                }
-            }
-        }
+        //            Console.WriteLine($"ID: {item.Id}, Name: {item.RequireLowercase}");
+        //        }
+        //    }
+        //}
         public PasswordOptions GetPasswordOptionsZehra()
         {
             using (var scope = _serviceProvider.CreateScope())
@@ -47,27 +47,27 @@ namespace DateExample.Data
             }
             return null;
         }
-        public static void ConfigurePasswordOptions(IWebHostBuilder builder)
-        {
-            builder.ConfigureServices(services =>
-            {
-                using (var scope = services.BuildServiceProvider().CreateScope())
-                {
-                    var dbContext = scope.ServiceProvider.GetRequiredService<ApplicationDbContext>();
-                    var passwordPolicyService = scope.ServiceProvider.GetRequiredService<PasswordPolicyService>();
-                    var passwordOptions = passwordPolicyService.GetPasswordPolicy();
+        //public static void ConfigurePasswordOptions(IWebHostBuilder builder)
+        //{
+        //    builder.ConfigureServices(services =>
+        //    {
+        //        using (var scope = services.BuildServiceProvider().CreateScope())
+        //        {
+        //            var dbContext = scope.ServiceProvider.GetRequiredService<ApplicationDbContext>();
+        //            var passwordPolicyService = scope.ServiceProvider.GetRequiredService<PasswordPolicyService>();
+        //            var passwordOptions = passwordPolicyService.GetPasswordPolicy();
 
-                    services.Configure<IdentityOptions>(options =>
-                    {
-                        options.Password.RequireDigit = passwordOptions.RequireDigit;
-                        options.Password.RequireLowercase = passwordOptions.RequireLowercase;
-                        options.Password.RequireNonAlphanumeric = passwordOptions.RequireNonAlphanumeric;
-                        options.Password.RequireUppercase = passwordOptions.RequireUppercase;
-                        options.Password.RequiredLength = passwordOptions.RequiredLength;
-                        // Diğer şifre seçeneklerini buraya ekleyebilirsiniz
-                    });
-                }
-            });
-        }
+        //            services.Configure<IdentityOptions>(options =>
+        //            {
+        //                options.Password.RequireDigit = passwordOptions.RequireDigit;
+        //                options.Password.RequireLowercase = passwordOptions.RequireLowercase;
+        //                options.Password.RequireNonAlphanumeric = passwordOptions.RequireNonAlphanumeric;
+        //                options.Password.RequireUppercase = passwordOptions.RequireUppercase;
+        //                options.Password.RequiredLength = passwordOptions.RequiredLength;
+        //                // Diğer şifre seçeneklerini buraya ekleyebilirsiniz
+        //            });
+        //        }
+        //    });
+        //}
     }
 }

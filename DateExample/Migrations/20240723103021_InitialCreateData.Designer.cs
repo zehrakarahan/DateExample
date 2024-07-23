@@ -12,8 +12,8 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 namespace DateExample.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20240611064042_InitialMigration2")]
-    partial class InitialMigration2
+    [Migration("20240723103021_InitialCreateData")]
+    partial class InitialCreateData
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -24,6 +24,34 @@ namespace DateExample.Migrations
                 .HasAnnotation("Relational:MaxIdentifierLength", 63);
 
             NpgsqlModelBuilderExtensions.UseIdentityByDefaultColumns(modelBuilder);
+
+            modelBuilder.Entity("DateExample.Data.PasswordPolicy", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("integer");
+
+                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("Id"));
+
+                    b.Property<bool>("RequireDigit")
+                        .HasColumnType("boolean");
+
+                    b.Property<bool>("RequireLowercase")
+                        .HasColumnType("boolean");
+
+                    b.Property<bool>("RequireNonAlphanumeric")
+                        .HasColumnType("boolean");
+
+                    b.Property<bool>("RequireUppercase")
+                        .HasColumnType("boolean");
+
+                    b.Property<int>("RequiredLength")
+                        .HasColumnType("integer");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("PasswordPolicies");
+                });
 
             modelBuilder.Entity("DateExample.Data.SoldToursEntity", b =>
                 {

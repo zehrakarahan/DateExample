@@ -33,8 +33,23 @@ builder.Services.AddIdentity<IdentityUser,IdentityRole>(options => options.SignI
 //.AddDefaultTokenProviders();
 builder.Services.AddScoped<MyService>();
 //builder.Services.Configure<PasswordOptions>(builder.Configuration.GetSection("PasswordOptions"));
-builder.ConfigureIdentityPasswordOptions();
+//builder.ConfigureIdentityPasswordOptions();
+var serviceProvider = builder.Services.BuildServiceProvider();
 
+// Örneðin, UserManager veya benzeri bir servis kullanabilirsiniz
+var userManager = serviceProvider.GetRequiredService<MyService>();
+
+var passwordManager = userManager.GetPasswordOptionsZehra();
+builder.Services.Configure<IdentityOptions>(options =>
+{
+    // Password settings
+    options.Password.RequireDigit = passwordManager.RequireDigit;
+    options.Password.RequiredLength = passwordManager.RequiredLength;
+    options.Password.RequireNonAlphanumeric = passwordManager.RequireNonAlphanumeric;
+    options.Password.RequireUppercase = passwordManager.RequireUppercase;
+    options.Password.RequireLowercase = passwordManager.RequireLowercase;
+    options.Password.RequiredUniqueChars = passwordManager.RequiredUniqueChars;
+});
 // Add services to the container.
 builder.Services.AddControllersWithViews();
 

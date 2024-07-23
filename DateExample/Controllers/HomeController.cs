@@ -16,16 +16,18 @@ namespace DateExample.Controllers
         public readonly UserManager<IdentityUser> _userManager;
         public readonly ApplicationDbContext _applicationDbContext;
         private readonly IConfiguration _configuration;
-
+        private readonly IServiceProvider _serviceProvider;
         public HomeController(ILogger<HomeController> logger, IWebHostEnvironment webHostEnvironment,
             UserManager<IdentityUser> userManager,ApplicationDbContext applicationDbContext,
-            IConfiguration configuration)
+            IConfiguration configuration,
+            IServiceProvider serviceProvider)
         {
             _logger = logger;
             _webHostEnvironment = webHostEnvironment;
             _userManager = userManager;
             _applicationDbContext = applicationDbContext;
             _configuration = configuration;
+            _serviceProvider = serviceProvider;
         }
       
 
@@ -38,9 +40,9 @@ namespace DateExample.Controllers
             //xdoc.Save(pathToDataFile);
             var user = new IdentityUser
             {
-                UserName = "zehrakarahan3",
+                UserName = "zehrakarahan32",
                 Email = "zehrakarahan96@gmail.com",
-                PhoneNumber = "05366932521"
+                PhoneNumber = "1"
             };
 
             var result = await _userManager.CreateAsync(user, "1");
@@ -51,17 +53,8 @@ namespace DateExample.Controllers
 
         public IActionResult Privacy()
         {
-            var config = (IConfigurationRoot)_configuration;
-            var section = config.GetSection("PasswordOptions");
-
-            section["RequireDigit"] = false.ToString();
-            section["RequireLowercase"] = true.ToString();
-            section["RequireNonAlphanumeric"] = false.ToString();
-            section["RequireUppercase"] = false.ToString();
-            section["RequiredLength"] = 4.ToString();
-
-            // Güncellenmiş yapılandırmayı yeniden yükle
-            config.Reload();
+ 
+           
             return View();
         }
 
